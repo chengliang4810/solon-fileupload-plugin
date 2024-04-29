@@ -19,6 +19,12 @@
     <dependencies>
 
         <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
             <groupId>com.layjava.solon</groupId>
             <artifactId>layjava-file-plugin-api</artifactId>
             <version>${revision}</version>
