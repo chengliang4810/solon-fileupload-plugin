@@ -1,6 +1,7 @@
 package com.layjava.solon.file;
 
 import org.noear.solon.annotation.Mapping;
+import org.noear.solon.annotation.Param;
 import org.noear.solon.annotation.Post;
 import org.noear.solon.core.handle.UploadedFile;
 
@@ -19,7 +20,7 @@ public class FileUploadController {
      */
     @Post
     @Mapping(value = "", multipart = true)
-    public FileInfo uploadFile(UploadedFile file) {
+    public FileInfo uploadFile(@Param("file") UploadedFile file) {
         return FileStore.save(file);
     }
 
