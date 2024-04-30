@@ -30,11 +30,6 @@ public class FileInfo implements Serializable {
     private String name;
 
     /**
-     * 访问文件的url
-     */
-    private String url;
-
-    /**
      * 文件大小
      */
     private Long size;

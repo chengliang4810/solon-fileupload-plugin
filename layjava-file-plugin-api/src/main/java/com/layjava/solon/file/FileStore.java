@@ -25,7 +25,14 @@ public interface FileStore {
         }
 
         // 使用找到的第一个，防止多个实现
-        return storeServices.get(0).save(file);
+        FileStoreService fileStoreService = storeServices.get(0);
+        FileInfo fileInfo = fileStoreService.buildFileInfo(file);
+
+        // 保存文件
+        String fileName = fileStoreService.save(file);
+        fileInfo.setName(fileName);
+
+        return fileInfo;
     }
 
 }

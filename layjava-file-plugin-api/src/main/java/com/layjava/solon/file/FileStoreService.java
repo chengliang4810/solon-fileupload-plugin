@@ -14,8 +14,26 @@ public interface FileStoreService {
      * 保存文件
      *
      * @param file 文件
+     * @return {@link String } 完整的文件名
      */
-    FileInfo save(UploadedFile file);
+    String save(UploadedFile file);
 
+    /**
+     * 构建文件信息
+     *
+     * @param file 上传的文件
+     * @return 文件信息
+     */
+    default FileInfo buildFileInfo(UploadedFile file) {
+        if (file == null) {
+            return null;
+        }
+
+        FileInfo fileInfo = new FileInfo();
+        fileInfo.setOriginalName(file.getName());
+        fileInfo.setSize(file.getContentSize());
+        fileInfo.setFileId(System.currentTimeMillis());
+        return fileInfo;
+    }
 
 }

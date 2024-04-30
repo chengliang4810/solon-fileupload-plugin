@@ -18,7 +18,7 @@ public class FileUploadController {
      * @param file 文件
      */
     @Post
-    @Mapping
+    @Mapping(value = "", multipart = true)
     public FileInfo uploadFile(UploadedFile file) {
         return FileStore.save(file);
     }

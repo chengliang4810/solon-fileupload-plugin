@@ -3,7 +3,6 @@ package com.layjava.solon.file.local;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
-import com.layjava.solon.file.FileInfo;
 import com.layjava.solon.file.FileStoreService;
 import org.noear.solon.core.handle.UploadedFile;
 
@@ -22,17 +21,20 @@ public class LocalFileStoreService implements FileStoreService {
     }
 
     @Override
-    public FileInfo save(UploadedFile file) {
+    public String save(UploadedFile file) {
         String fileName = getFileName(file);
 
         // 不存在则创建的目录
         File storeFile = FileUtil.file(storePath, fileName);
+        if (!storeFile.exists()){
+            FileUtil.mkParentDirs(storeFile);
+        }
         try {
             file.transferTo(storeFile);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return new FileInfo();
+        return fileName;
     }
 
     /**
