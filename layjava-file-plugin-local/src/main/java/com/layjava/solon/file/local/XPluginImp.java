@@ -12,8 +12,6 @@ public class XPluginImp implements Plugin {
      */
     private static final String DEFAULT_UPLOAD_URL = "/file/upload";
 
-
-
     @Override
     public void start(AppContext context) throws Throwable {
         //注册文件存储服务

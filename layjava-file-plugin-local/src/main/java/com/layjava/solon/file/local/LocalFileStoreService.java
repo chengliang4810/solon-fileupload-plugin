@@ -1,6 +1,8 @@
 package com.layjava.solon.file.local;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.StrUtil;
 import com.layjava.solon.file.FileInfo;
 import com.layjava.solon.file.FileStoreService;
 import org.noear.solon.core.handle.UploadedFile;
@@ -21,17 +23,30 @@ public class LocalFileStoreService implements FileStoreService {
 
     @Override
     public FileInfo save(UploadedFile file) {
+        String fileName = getFileName(file);
+
         // 不存在则创建的目录
-        File storeDir = FileUtil.file(storePath);
-        if (!storeDir.exists()) {
-            storeDir.mkdirs();
-        }
+        File storeFile = FileUtil.file(storePath, fileName);
         try {
-            file.transferTo(new File(storePath));
+            file.transferTo(storeFile);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return new FileInfo();
+    }
+
+    /**
+     * 获取文件名
+     *
+     * @param file 文件
+     * @return {@link String}
+     */
+    private String getFileName(UploadedFile file){
+        String fileName = IdUtil.getSnowflakeNextIdStr();
+        if (StrUtil.isNotEmpty(file.getExtension())){
+            fileName = fileName + "." + file.getExtension();
+        }
+        return fileName;
     }
 
 }
